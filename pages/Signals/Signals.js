@@ -2,6 +2,13 @@ import React, { Fragment } from "react";
 import { FlatList, View } from "react-native";
 import Signal from "../../components/Signal/Signal";
 import { styles } from "./Signals.style";
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+  setTestDeviceIDAsync,
+} from "expo-ads-admob";
 
 const signals = [
   {
@@ -22,12 +29,20 @@ const signals = [
   },
 ];
 
-function Signals() {
+function Signals({ navigation }) {
   return (
     <View style={styles.container}>
       <FlatList
         data={signals}
-        renderItem={({ index, item }) => <Signal {...item} />}
+        renderItem={({ index, item }) => (
+          <Signal {...item} navigation={navigation} />
+        )}
+      />
+
+      <AdMobBanner
+        bannerSize="smartBannerLandscape"
+        adUnitID="ca-app-pub-3940256099942544/6300978111"
+        servePersonalizedAds // true or false
       />
     </View>
   );

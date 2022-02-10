@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
   type: {
     fontSize: wWidth * 0.05,
     fontWeight: "bold",
+    textAlign: "center",
   },
   typeBuy: {
     color: "rgb(200,0,0)",
@@ -35,6 +36,7 @@ export const styles = StyleSheet.create({
   open: {
     color: "rgb(200,200,200)",
     fontSize: wWidth * 0.03,
+    textAlign: "center",
   },
   status: {
     color: "rgb(200,200,200)",
@@ -44,6 +46,7 @@ export const styles = StyleSheet.create({
     lineHeight: wHeight * 0.05,
     paddingLeft: wWidth * 0.05,
     width: wWidth * 0.22,
+    textAlign: "center",
   },
   statusActive: {
     color: "rgb(0,160,0)",

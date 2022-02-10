@@ -1,7 +1,8 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import BottomTabs from "./bottomTabs";
 import { Fontisto } from "@expo/vector-icons";
-import { Dimensions } from "react-native";
+import { Dimensions, Text, View } from "react-native";
+import CustomDrawer from "../components/CustomDrawer/CustomDrawer";
 
 const wWidth = Dimensions.get("window").width;
 const wHeight = Dimensions.get("window").height;
@@ -9,7 +10,7 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigation() {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
       <Drawer.Screen
         name="Signals"
         component={BottomTabs}
