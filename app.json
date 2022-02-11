@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "forex-signals-and-alerts",
+    "name": "Forex Signals",
     "slug": "forex-signals-and-alerts",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,16 +13,20 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-6347096861709461~6917139867"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-6347096861709461~6917139867"
       }
     },
     "web": {
