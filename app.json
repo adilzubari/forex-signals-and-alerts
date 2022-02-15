@@ -13,7 +13,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "config": {
@@ -27,7 +29,8 @@
       },
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-6347096861709461~6917139867"
-      }
+      },
+      "package": "com.forex.trading.signals"
     },
     "web": {
       "favicon": "./assets/favicon.png"
