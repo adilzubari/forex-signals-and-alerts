@@ -45,8 +45,13 @@ import axios from "axios";
 function Signals({ navigation }) {
   console.log(navigation.getState());
   const [signals, setSignals] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+  const [Refresh, setRefresh] = useState(true);
+
+  const toggleResfresh = () => setRefresh(!Refresh);
 
   useEffect(() => {
+    setIsFetching(true);
     /** Get Signals from server */
     axios
       .get("http://167.172.131.143/apis/fetchAllSignals.php")
@@ -68,15 +73,21 @@ function Signals({ navigation }) {
         setSignals(res);
       })
       .catch((error) => console.log(error));
-  }, []);
+    setIsFetching(false);
+  }, [Refresh]);
 
   return (
     <View style={styles.container}>
       <FlatList
         data={signals}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ index, item }) => (
           <Signal {...item} navigation={navigation} />
         )}
+        onRefresh={toggleResfresh}
+        refreshing={isFetching}
+        progressViewOffset={100}
+        // ListEmptyComponent={<Empty message="No data found." />}
       />
 
       <AdMobBanner
