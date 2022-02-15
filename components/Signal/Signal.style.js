@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     marginBottom: wHeight * 0.01,
     flexDirection: "row",
     justifyContent: "space-between",
+    overflow: "hidden",
   },
   name: {
     color: "white",
@@ -50,5 +51,10 @@ export const styles = StyleSheet.create({
   },
   statusActive: {
     color: "rgb(0,160,0)",
+  },
+  vip_tag: {
+    position: "absolute",
+    width: wWidth * 0.1,
+    height: wWidth * 0.1,
   },
 });
