@@ -42,4 +42,12 @@ export const styles = StyleSheet.create({
     color: "rgb(230,230,230)",
     fontSize: wWidth * 0.04,
   },
+  resultsTitle: {
+    color: "rgb(230,230,230)",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontStyle: "italic",
+    fontSize: wWidth * 0.06,
+    marginVertical: wHeight * 0.03,
+  },
 });
