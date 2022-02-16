@@ -4,6 +4,26 @@ import { useEffect, Fragment, useRef, useState } from "react";
 import { StyleSheet, Text, View, Alert, Platform } from "react-native";
 import StackNavigation from "./navigation/stack";
 import * as Notifications from "expo-notifications";
+import * as Device from "expo-device";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDb-8f5VpJPxjbMZt1EQG6t8VjQXk1iaq0",
+  authDomain: "forex-signals-fa3d3.firebaseapp.com",
+  projectId: "forex-signals-fa3d3",
+  storageBucket: "forex-signals-fa3d3.appspot.com",
+  messagingSenderId: "759888780291",
+  appId: "1:759888780291:web:a044b189edd0d0a14fc236",
+  measurementId: "G-LHYXT8D70T",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -13,32 +33,46 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const registerForPushNotificationsAsync = async () => {
+const getExpoTokenFiltered = (token) =>
+  token.split("[").pop().split("]").shift();
+
+async function registerDeviceOnFirestore({ token }) {
+  const usersRef = doc(db, "users", getExpoTokenFiltered(token));
+  await setDoc(usersRef, { token, role: "guest" });
+}
+
+async function registerForPushNotificationsAsync() {
   let token;
-  // if (Constants.isDevice) {
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus = existingStatus;
-
-  if (existingStatus !== "granted" || Platform.OS === "android") {
-    const { status } = await Notifications.requestPermissionsAsync();
-
-    finalStatus = status;
+  if (Device.isDevice) {
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== "granted") {
+      alert("Failed to get push token for push notification!");
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    await registerDeviceOnFirestore({ token });
+    console.log(token);
+  } else {
+    alert("Must use physical device for Push Notifications");
   }
-  if (finalStatus !== "granted") return;
-
-  token = (await Notifications.getExpoPushTokenAsync()).data;
 
   if (Platform.OS === "android") {
     Notifications.setNotificationChannelAsync("global", {
-      name: "global",
+      name: "default",
       importance: Notifications.AndroidImportance.MAX,
-      // vibrationPattern: [0, 250, 250, 250],
-      // lightColor: "#FF231F7C",
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: "#FF231F7C",
     });
   }
 
   return token;
-};
+}
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState("");
@@ -47,48 +81,30 @@ export default function App() {
   const responseListener = useRef();
 
   useEffect(async () => {
-    let token;
-    // if (Constants.isDevice) {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token)
+    );
 
-    if (existingStatus !== "granted" || Platform.OS === "android") {
-      const { status } = await Notifications.requestPermissionsAsync();
-
-      finalStatus = status;
-    }
-    if (finalStatus !== "granted") return;
-
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-    setExpoPushToken(token);
-
-    if (Platform.OS === "android") {
-      await Notifications.setNotificationChannelAsync("global", {
-        name: "global",
-        // importance: Notifications.AndroidImportance.MAX,
-        // vibrationPattern: [0, 250, 250, 250],
-        // lightColor: "#FF231F7C",
+    // This listener is fired whenever a notification is received while the app is foregrounded
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        console.log("notification", notification);
+        setNotification(notification);
       });
-      notificationListener.current =
-        Notifications.addNotificationReceivedListener((notification) => {
-          setNotification(notification);
-          console.log(notification);
-        });
 
-      responseListener.current =
-        Notifications.addNotificationResponseReceivedListener((response) => {
-          console.log(response);
-        });
+    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log("response", response);
+        console.log(response);
+      });
 
-      return () => {
-        Notifications.removeNotificationSubscription(
-          notificationListener.current
-        );
-        Notifications.removeNotificationSubscription(responseListener.current);
-      };
-    }
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
   }, []);
 
   return (
