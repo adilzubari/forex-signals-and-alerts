@@ -47,11 +47,6 @@ export default function App() {
   const responseListener = useRef();
 
   useEffect(async () => {
-    console.log(
-      "=>",
-      await Notifications.getNotificationChannelGroupAsync("global")
-    );
-
     let token;
     // if (Constants.isDevice) {
     const { status: existingStatus } =
