@@ -8,6 +8,7 @@ import * as Device from "expo-device";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
+import axios from "axios";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -106,6 +107,31 @@ export default function App() {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+
+  const [TokenThread, setTokenThread] = useState(false);
+  useEffect(() => {
+    if (TokenThread || expoPushToken === "") return;
+    /** Get all push tokens from server */
+    axios
+      .get("http://167.172.131.143/apis/getAllTokens.php")
+      .then((rawResponse) => {
+        const FilteredToken = rawResponse.data
+          .map(({ token }) => token)
+          .filter((token) => token === expoPushToken);
+        if (FilteredToken.length == 0) {
+          /** Register Token */
+          console.log("Registering uesr in database", expoPushToken);
+          axios.get(
+            `http://167.172.131.143/apis/registerUser.php?token=${encodeURI(
+              expoPushToken
+            )}`
+          );
+        }
+      })
+      .finally(() => {
+        setTokenThread(true);
+      });
+  }, [expoPushToken]);
 
   return (
     <Fragment>
