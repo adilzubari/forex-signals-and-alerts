@@ -2,14 +2,9 @@ import React, { Fragment, useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 import Signal from "../../components/Signal/Signal";
 import { styles } from "./Signals.style";
-import {
-  AdMobBanner,
-  AdMobInterstitial,
-  PublisherBanner,
-  AdMobRewarded,
-  setTestDeviceIDAsync,
-} from "expo-ads-admob";
+import { AdMobBanner } from "expo-ads-admob";
 import axios from "axios";
+import * as Notifications from "expo-notifications";
 
 // {
 //   "0": "39",
@@ -49,6 +44,48 @@ function Signals({ navigation }) {
   const [Refresh, setRefresh] = useState(true);
 
   const toggleResfresh = () => setRefresh(!Refresh);
+
+  const lastNotificationResponse = Notifications.useLastNotificationResponse();
+
+  useEffect(() => {
+    if (
+      lastNotificationResponse &&
+      lastNotificationResponse.notification.request.content.data["id"] &&
+      lastNotificationResponse.actionIdentifier ===
+        Notifications.DEFAULT_ACTION_IDENTIFIER
+    ) {
+      toggleResfresh();
+      const {
+        id,
+        title,
+        openPrice,
+        action,
+        status,
+        takeProfit1,
+        takeProfit2,
+        takeProfit3,
+        stopLoss,
+        profitLoss,
+        comments,
+        type,
+      } = lastNotificationResponse.notification.request.content.data;
+      console.log(id);
+      navigation.navigate("SignalDetail", {
+        id,
+        title,
+        openPrice,
+        action,
+        status,
+        takeProfit1,
+        takeProfit2,
+        takeProfit3,
+        stopLoss,
+        profitLoss,
+        comments,
+        type,
+      });
+    }
+  }, [lastNotificationResponse]);
 
   useEffect(() => {
     setIsFetching(true);

@@ -42,8 +42,44 @@ function SignalDetail({ route, navigation }) {
     axios
       .get("http://167.172.131.143/apis/fetchAllSignals.php")
       .then((res) => {
-        res = res.data.filter(({ id }) => id === sid).pop();
-        setDetails(res);
+        if (sid !== 1) {
+          /** This navigation request is coming from within app click */
+          res = res.data.filter(({ id }) => id * 1 === sid * 1).pop();
+          setDetails(res);
+        } else if (sid === 1) {
+          /** Notification clicked and it doesn't contain id, so we have to match other parameters */
+          console.log(route.params);
+          const {
+            title,
+            openPrice,
+            action,
+            status,
+            takeProfit1,
+            takeProfit2,
+            takeProfit3,
+            stopLoss,
+            profitLoss,
+            comments,
+            type,
+          } = route.params;
+          res = res.data
+            .filter(
+              (e) =>
+                title === e.title &&
+                openPrice === e.openPrice &&
+                action === e.action &&
+                status === e.status &&
+                takeProfit1 === e.takeProfit1 &&
+                takeProfit2 === e.takeProfit2 &&
+                takeProfit3 === e.takeProfit3 &&
+                stopLoss === e.stopLoss &&
+                profitLoss === e.profitLoss &&
+                comments === e.comments &&
+                type === e.type
+            )
+            .pop();
+          setDetails(res);
+        }
       })
       .catch((error) => console.log(error));
   }, []);
