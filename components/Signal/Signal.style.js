@@ -29,10 +29,10 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
   typeBuy: {
-    color: "rgb(200,0,0)",
+    color: "rgb(0,160,0)",
   },
   typeSell: {
-    color: "rgb(0,160,0)",
+    color: "rgb(200,0,0)",
   },
   open: {
     color: "rgb(200,200,200)",

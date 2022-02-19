@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./Signal.style";
 import VipTag from "../../assets/vip_tag.png";
@@ -18,7 +18,9 @@ function Signal({
       activeOpacity={0.8}
       style={styles.container}
       onPress={() =>
-        type === "Normal" && navigation.navigate("SignalDetail", { id })
+        type === "Normal"
+          ? navigation.navigate("SignalDetail", { id })
+          : navigation.navigate("Upgrade", { id })
       }
     >
       {type === "Vip" && <Image source={VipTag} style={styles.vip_tag} />}
@@ -29,15 +31,19 @@ function Signal({
       </View>
 
       <View>
-        <Text
-          style={[
-            styles.type,
-            action == "Buy" ? styles.typeBuy : styles.typeSell,
-          ]}
-        >
-          {action}
-        </Text>
-        <Text style={styles.open}>{open}</Text>
+        {type === "Normal" && (
+          <Fragment>
+            <Text
+              style={[
+                styles.type,
+                action == "Buy" ? styles.typeBuy : styles.typeSell,
+              ]}
+            >
+              {action}
+            </Text>
+            <Text style={styles.open}>{open}</Text>
+          </Fragment>
+        )}
       </View>
 
       <Text style={[styles.status, status == "Active" && styles.statusActive]}>
