@@ -5,6 +5,7 @@ import { styles } from "./Signals.style";
 import { AdMobBanner } from "expo-ads-admob";
 import axios from "axios";
 import * as Notifications from "expo-notifications";
+import { FadeInFlatList } from "@ja-ka/react-native-fade-in-flatlist";
 
 // {
 //   "0": "39",
@@ -115,7 +116,11 @@ function Signals({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <FlatList
+      <FadeInFlatList
+        initialDelay={0}
+        durationPerItem={200}
+        parallelItems={2}
+        itemsToFadeIn={10}
         data={signals}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ index, item }) => (
@@ -123,7 +128,7 @@ function Signals({ navigation }) {
         )}
         onRefresh={toggleResfresh}
         refreshing={isFetching}
-        progressViewOffset={100}
+        progressViewOffset={10}
         // ListEmptyComponent={<Empty message="No data found." />}
       />
 

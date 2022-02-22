@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     color: "rgb(200,0,0)",
   },
   open: {
-    color: "rgb(200,200,200)",
+    color: "#cfc467",
     fontSize: wWidth * 0.03,
     textAlign: "center",
   },

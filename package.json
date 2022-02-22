@@ -9,6 +9,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@ja-ka/react-native-fade-in-flatlist": "^1.0.7",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-firebase/app": "^14.4.0",
     "@react-native-firebase/crashlytics": "^14.4.0",
