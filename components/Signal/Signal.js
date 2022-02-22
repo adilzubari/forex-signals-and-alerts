@@ -13,6 +13,15 @@ function Signal({
   status,
   navigation,
 }) {
+  dateTime = dateTime.split("-").join("/") + " UTC+0700";
+  dateTime =
+    new Date(dateTime).toLocaleDateString() +
+    " " +
+    new Date(dateTime).toLocaleTimeString();
+
+  // .split(" ");
+  // dateTime.pop();
+  // dateTime = dateTime.join(" ");
   return (
     <TouchableOpacity
       activeOpacity={0.8}

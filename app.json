@@ -2,7 +2,7 @@
   "expo": {
     "name": "Forex Signals",
     "slug": "forex-signals",
-    "version": "9.0.0",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/app-icon.png",
     "splash": {
@@ -24,7 +24,7 @@
       }
     },
     "android": {
-      "versionCode": 9,
+      "versionCode": 11,
       "adaptiveIcon": {
         "foregroundImage": "./assets/app-adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
