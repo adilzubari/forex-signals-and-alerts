@@ -45,6 +45,11 @@ function SignalDetail({ route, navigation }) {
         if (sid !== 1) {
           /** This navigation request is coming from within app click */
           res = res.data.filter(({ id }) => id * 1 === sid * 1).pop();
+          res.lastUpdate = res.lastUpdate.split("-").join("/") + " UTC+0000";
+          res.lastUpdate =
+            new Date(res.lastUpdate).toLocaleDateString() +
+            " " +
+            new Date(res.lastUpdate).toLocaleTimeString();
           setDetails(res);
         } else if (sid === 1) {
           /** Notification clicked and it doesn't contain id, so we have to match other parameters */
@@ -78,6 +83,12 @@ function SignalDetail({ route, navigation }) {
                 type === e.type
             )
             .pop();
+
+          res.lastUpdate = res.lastUpdate.split("-").join("/") + " UTC+0000";
+          res.lastUpdate =
+            new Date(res.lastUpdate).toLocaleDateString() +
+            " " +
+            new Date(res.lastUpdate).toLocaleTimeString();
           setDetails(res);
         }
       })
@@ -87,10 +98,13 @@ function SignalDetail({ route, navigation }) {
   useEffect(async () => {
     /** Handles Interstitial Ad */
     await AdMobInterstitial.setAdUnitID(
-      process.env.NODE_ENV === "development"
-        ? "ca-app-pub-3940256099942544/1033173712"
-        : "ca-app-pub-6347096861709461/5873513327"
+      "ca-app-pub-6347096861709461/5873513327"
     );
+    // await AdMobInterstitial.setAdUnitID(
+    //   process.env.NODE_ENV === "development"
+    //     ? "ca-app-pub-3940256099942544/1033173712"
+    //     : "ca-app-pub-6347096861709461/5873513327"
+    // );
     await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
     await AdMobInterstitial.showAdAsync();
   }, []);

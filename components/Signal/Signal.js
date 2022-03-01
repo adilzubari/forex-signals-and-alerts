@@ -13,7 +13,7 @@ function Signal({
   status,
   navigation,
 }) {
-  dateTime = dateTime.split("-").join("/") + " UTC+0700";
+  dateTime = dateTime.split("-").join("/") + " UTC+0000";
   dateTime =
     new Date(dateTime).toLocaleDateString() +
     " " +
