@@ -10,7 +10,7 @@ import { styles } from "./RemoveAds.style";
 
 function RemoveAds({ navigation }) {
   const showToast = () =>
-    ToastAndroid.show("Coming soon ...", ToastAndroid.SHORT);
+    ToastAndroid.show("Internal Error", ToastAndroid.SHORT);
   return (
     <View style={styles.container}>
       <Text style={styles.p}>

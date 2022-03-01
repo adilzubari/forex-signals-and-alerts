@@ -24,7 +24,7 @@
       }
     },
     "android": {
-      "versionCode": 11,
+      "versionCode": 15,
       "adaptiveIcon": {
         "foregroundImage": "./assets/app-adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -34,7 +34,7 @@
       },
       "googleServicesFile": "./google-services.json",
       "package": "com.forex.trading.signals",
-      "permissions": []
+      "permissions": ["BILLING"]
     },
     "plugins": ["expo-notifications"]
   }
