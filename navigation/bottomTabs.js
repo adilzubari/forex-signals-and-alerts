@@ -5,7 +5,7 @@ import {
   Ionicons,
   Entypo,
 } from "@expo/vector-icons";
-import { StyleSheet, Text, View } from "react-native";
+import { Share, StyleSheet, Text, View } from "react-native";
 import Signals from "../pages/Signals/Signals";
 import { useEffect } from "react";
 
@@ -33,6 +33,18 @@ const UpgradeClick = ({ navigation }) => {
   return <View style={styles.blackView}></View>;
 };
 
+const ShareClick = ({ navigation }) => {
+  useEffect(() => {
+    navigation.addListener("focus", () => {
+      navigation.navigate("HiddenSignalsTab");
+      Share.share({
+        url: "https://play.google.com/store/apps/details?id=com.forex.trading.signals",
+      });
+    });
+  }, []);
+  return <View style={styles.blackView}></View>;
+};
+
 export default function BottomTabs() {
   return (
     <Tab.Navigator
@@ -48,11 +60,12 @@ export default function BottomTabs() {
     >
       <Tab.Screen
         name="UpgradeBtn"
-        component={UpgradeClick}
+        component={ShareClick}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <FontAwesome5 name="angle-double-right" size={size} color={color} />
           ),
+          title: "Share",
         }}
       />
       <Tab.Screen
@@ -69,6 +82,7 @@ export default function BottomTabs() {
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons name="ios-checkmark-circle" size={size} color={color} />
           ),
+          title: "Vip",
         }}
       />
       <Tab.Screen
@@ -78,6 +92,7 @@ export default function BottomTabs() {
           tabBarIcon: ({ focused, color, size }) => (
             <Entypo name="cross" size={size} color={color} />
           ),
+          title: "Remove Ads",
         }}
       />
     </Tab.Navigator>
