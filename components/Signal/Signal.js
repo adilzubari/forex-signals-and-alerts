@@ -11,6 +11,7 @@ function Signal({
   type,
   action,
   status,
+  profitLoss,
   navigation,
 }) {
   dateTime = dateTime.split("-").join("/") + " UTC+0000";
@@ -50,7 +51,7 @@ function Signal({
             >
               {action}
             </Text>
-            <Text style={styles.open}>{open}</Text>
+            <Text style={styles.open}>{profitLoss}</Text>
           </Fragment>
         )}
       </View>

@@ -52,6 +52,8 @@ function Signals({ navigation }) {
     if (
       lastNotificationResponse &&
       lastNotificationResponse.notification.request.content.data["id"] &&
+      lastNotificationResponse.notification.request.content.data["type"] ===
+        "Normal" &&
       lastNotificationResponse.actionIdentifier ===
         Notifications.DEFAULT_ACTION_IDENTIFIER
     ) {
@@ -67,10 +69,11 @@ function Signals({ navigation }) {
         takeProfit3,
         stopLoss,
         profitLoss,
+        openingTime,
         comments,
         type,
       } = lastNotificationResponse.notification.request.content.data;
-      console.log(id);
+      // console.log(id);
       navigation.navigate("SignalDetail", {
         id,
         title,
@@ -82,6 +85,7 @@ function Signals({ navigation }) {
         takeProfit3,
         stopLoss,
         profitLoss,
+        openingTime,
         comments,
         type,
       });
@@ -95,7 +99,16 @@ function Signals({ navigation }) {
       .get("http://167.172.131.143/apis/fetchAllSignals.php")
       .then((res) => {
         res = res.data.map(
-          ({ id, title, lastUpdate, action, status, openPrice, type }) => {
+          ({
+            id,
+            title,
+            lastUpdate,
+            action,
+            status,
+            openPrice,
+            type,
+            profitLoss,
+          }) => {
             return {
               id,
               name: title,
@@ -105,6 +118,7 @@ function Signals({ navigation }) {
               type,
               action,
               status,
+              profitLoss,
             };
           }
         );

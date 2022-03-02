@@ -44,12 +44,19 @@ function SignalDetail({ route, navigation }) {
       .then((res) => {
         if (sid !== 1) {
           /** This navigation request is coming from within app click */
+          /** lastUpdate Time */
           res = res.data.filter(({ id }) => id * 1 === sid * 1).pop();
           res.lastUpdate = res.lastUpdate.split("-").join("/") + " UTC+0000";
           res.lastUpdate =
             new Date(res.lastUpdate).toLocaleDateString() +
             " " +
             new Date(res.lastUpdate).toLocaleTimeString();
+          /** Opening Time */
+          res.openingTime = res.openingTime.split("-").join("/") + " UTC+0000";
+          res.openingTime =
+            new Date(res.openingTime).toLocaleDateString() +
+            " " +
+            new Date(res.openingTime).toLocaleTimeString();
           setDetails(res);
         } else if (sid === 1) {
           /** Notification clicked and it doesn't contain id, so we have to match other parameters */
@@ -66,6 +73,7 @@ function SignalDetail({ route, navigation }) {
             profitLoss,
             comments,
             type,
+            openingTime,
           } = route.params;
           res = res.data
             .filter(
@@ -89,6 +97,12 @@ function SignalDetail({ route, navigation }) {
             new Date(res.lastUpdate).toLocaleDateString() +
             " " +
             new Date(res.lastUpdate).toLocaleTimeString();
+          /** Opening Time */
+          res.openingTime = res.openingTime.split("-").join("/") + " UTC+0000";
+          res.openingTime =
+            new Date(res.openingTime).toLocaleDateString() +
+            " " +
+            new Date(res.openingTime).toLocaleTimeString();
           setDetails(res);
         }
       })
