@@ -6,6 +6,7 @@ import { AdMobBanner } from "expo-ads-admob";
 import axios from "axios";
 import * as Notifications from "expo-notifications";
 import { FadeInFlatList } from "@ja-ka/react-native-fade-in-flatlist";
+import { AnimatedFlatList, AnimationType } from "flatlist-intro-animations";
 
 // {
 //   "0": "39",
@@ -130,7 +131,16 @@ function Signals({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <FadeInFlatList
+      <AnimatedFlatList
+        data={signals}
+        renderItem={({ item }) => <Signal {...item} navigation={navigation} />}
+        animationType={AnimationType.Dive}
+        animationDuration={1000}
+        // focused={focused}
+        onRefresh={toggleResfresh}
+        refreshing={isFetching}
+      />
+      {/* <FadeInFlatList
         initialDelay={0}
         durationPerItem={200}
         parallelItems={2}
@@ -143,8 +153,7 @@ function Signals({ navigation }) {
         onRefresh={toggleResfresh}
         refreshing={isFetching}
         progressViewOffset={10}
-        // ListEmptyComponent={<Empty message="No data found." />}
-      />
+      /> */}
 
       <AdMobBanner
         bannerSize="smartBannerLandscape"
