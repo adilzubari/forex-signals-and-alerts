@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Text } from "react-native";
 import RemoveAds from "../pages/RemoveAds/RemoveAds";
 import SignalDetail from "../pages/SignalDetail/SignalDetail";
+import Announcements from "../pages/Announcements/Announcements";
 import DrawerNavigation from "./drawer";
 import { Ionicons } from "@expo/vector-icons";
 import { wWidth } from "../constants";
@@ -49,6 +50,19 @@ export default function StackNavigation() {
           headerStyle: { backgroundColor: "rgb(50,50,50)", elevation: 0 },
           headerTintColor: "white",
           title: "Upgrade",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontStyle: "italic",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Announcements"
+        component={Announcements}
+        options={{
+          headerStyle: { backgroundColor: "rgb(50,50,50)", elevation: 0 },
+          headerTintColor: "white",
+          title: "Announcements",
           headerTitleAlign: "center",
           headerTitleStyle: {
             fontStyle: "italic",

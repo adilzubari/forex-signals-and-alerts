@@ -111,14 +111,14 @@ function SignalDetail({ route, navigation }) {
 
   useEffect(async () => {
     /** Handles Interstitial Ad */
-    await AdMobInterstitial.setAdUnitID(
-      "ca-app-pub-6347096861709461/5873513327"
-    );
     // await AdMobInterstitial.setAdUnitID(
-    //   process.env.NODE_ENV === "development"
-    //     ? "ca-app-pub-3940256099942544/1033173712"
-    //     : "ca-app-pub-6347096861709461/5873513327"
+    //   "ca-app-pub-6347096861709461/5873513327"
     // );
+    await AdMobInterstitial.setAdUnitID(
+      process.env.NODE_ENV === "development"
+        ? "ca-app-pub-3940256099942544/1033173712"
+        : "ca-app-pub-6347096861709461/5873513327"
+    );
     await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
     await AdMobInterstitial.showAdAsync();
   }, []);
