@@ -17,21 +17,26 @@ export default function DrawerNavigation({ stackNavigation }) {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawer {...props} />}
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: "rgb(50,50,50)",
-          elevation: 0,
-        },
-        headerTintColor: "white",
-        headerTitleAlign: "center",
-        headerRight: () => (
-          <Fontisto
-            name="bell-alt"
-            size={24}
-            color="white"
-            style={{ marginRight: wWidth * 0.05 }}
-          />
-        ),
+      screenOptions={({ route, navigation: { navigate } }) => {
+        return {
+          headerStyle: {
+            backgroundColor: "rgb(50,50,50)",
+            elevation: 0,
+          },
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+          headerRight: () => {
+            return (
+              <Fontisto
+                name="bell-alt"
+                size={24}
+                color="white"
+                style={{ marginRight: wWidth * 0.05 }}
+                onPress={() => navigate("Announcements")}
+              />
+            );
+          },
+        };
       }}
     >
       <Drawer.Screen name="Signals" component={BottomTabs} />

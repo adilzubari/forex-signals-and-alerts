@@ -157,12 +157,12 @@ function Signals({ navigation }) {
 
       <AdMobBanner
         bannerSize="smartBannerLandscape"
-        adUnitID={"ca-app-pub-6347096861709461/2512852815"}
-        // adUnitID={
-        //   process.env.NODE_ENV === "development"
-        //     ? "ca-app-pub-3940256099942544/6300978111"
-        //     : "ca-app-pub-6347096861709461/2512852815"
-        // }
+        // adUnitID={"ca-app-pub-6347096861709461/2512852815"}
+        adUnitID={
+          process.env.NODE_ENV === "development"
+            ? "ca-app-pub-3940256099942544/6300978111"
+            : "ca-app-pub-6347096861709461/2512852815"
+        }
         servePersonalizedAds // true or false
       />
     </View>
