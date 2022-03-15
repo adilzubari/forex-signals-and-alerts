@@ -10,6 +10,7 @@ import {
 } from "expo-ads-admob";
 import axios from "axios";
 import { ActivityIndicator } from "react-native-paper";
+import * as FacebookAds from "expo-ads-facebook";
 
 function SignalDetail({ route, navigation }) {
   const { id: sid } = route.params;
@@ -120,7 +121,15 @@ function SignalDetail({ route, navigation }) {
         : "ca-app-pub-6347096861709461/5873513327"
     );
     await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
-    await AdMobInterstitial.showAdAsync();
+    // await AdMobInterstitial.showAdAsync();
+
+    FacebookAds.InterstitialAdManager.showAd(
+      `VID_HD_16_9_15S_APP_INSTALL#1552539725102158_1552541778435286`
+    )
+      .then((didClick) => {})
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
