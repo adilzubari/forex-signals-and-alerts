@@ -20,6 +20,7 @@ import { ActivityIndicator } from "react-native-paper";
 import ReactNativeGalleryImage from "react-native-gallery-image";
 import convertObjectToArray from "../../helpers/convertObjectToArray";
 import { ImageGallery } from "@georstat/react-native-image-gallery";
+import * as FacebookAds from "expo-ads-facebook";
 
 function SignalDetail({ route, navigation }) {
   const { id: sid } = route.params;
@@ -151,8 +152,15 @@ function SignalDetail({ route, navigation }) {
         : "ca-app-pub-6347096861709461/5873513327"
     );
     await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
-    process.env.NODE_ENV === "production" &&
-      (await AdMobInterstitial.showAdAsync());
+    // await AdMobInterstitial.showAdAsync();
+
+    FacebookAds.InterstitialAdManager.showAd(
+      `VID_HD_16_9_15S_APP_INSTALL#1552539725102158_1552541778435286`
+    )
+      .then((didClick) => {})
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
