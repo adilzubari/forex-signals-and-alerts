@@ -25,6 +25,7 @@
     "axios": "^0.25.0",
     "expo": "~44.0.0",
     "expo-ads-admob": "~12.0.0",
+    "expo-ads-facebook": "~11.1.0",
     "expo-constants": "~13.0.1",
     "expo-device": "~4.1.0",
     "expo-facebook": "~12.1.0",

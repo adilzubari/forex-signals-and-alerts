@@ -8,6 +8,7 @@ import * as Notifications from "expo-notifications";
 import { FadeInFlatList } from "@ja-ka/react-native-fade-in-flatlist";
 import { AnimatedFlatList, AnimationType } from "flatlist-intro-animations";
 import { MagicFlatList } from "react-native-magic-list";
+import * as FacebookAds from "expo-ads-facebook";
 
 // {
 //   "0": "39",
@@ -41,7 +42,6 @@ import { MagicFlatList } from "react-native-magic-list";
 // }
 
 function Signals({ navigation }) {
-  console.log(navigation.getState());
   const [signals, setSignals] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [Refresh, setRefresh] = useState(true);
@@ -187,7 +187,7 @@ function Signals({ navigation }) {
         }}
       /> */}
 
-      <AdMobBanner
+      {/* <AdMobBanner
         bannerSize="smartBannerLandscape"
         // adUnitID={"ca-app-pub-6347096861709461/2512852815"}
         adUnitID={
@@ -196,6 +196,12 @@ function Signals({ navigation }) {
             : "ca-app-pub-6347096861709461/2512852815"
         }
         servePersonalizedAds // true or false
+      /> */}
+      <FacebookAds.BannerAd
+        placementId="IMG_16_9_APP_INSTALL#1552539725102158_1552540931768704"
+        type="standard"
+        onPress={() => console.log("click")}
+        onError={(error) => console.log("error", error)}
       />
     </View>
   );

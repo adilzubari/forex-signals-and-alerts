@@ -24,7 +24,7 @@
       }
     },
     "android": {
-      "versionCode": 16,
+      "versionCode": 17,
       "adaptiveIcon": {
         "foregroundImage": "./assets/app-adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -36,12 +36,17 @@
       "package": "com.forex.trading.signals",
       "permissions": ["BILLING"]
     },
+    "facebookScheme": "fb1234567891234567",
+    "facebookAppId": "1552539725102158",
+    "facebookDisplayName": "Forex signals and alerts",
+    "facebookAutoLogAppEventsEnabled": true,
+    "facebookAdvertiserIDCollectionEnabled": true,
     "plugins": [
       "expo-notifications",
       [
-        "expo-facebook",
+        "expo-ads-facebook",
         {
-          "userTrackingPermission": false
+          "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
         }
       ]
     ]
