@@ -36,6 +36,14 @@
       "package": "com.forex.trading.signals",
       "permissions": ["BILLING"]
     },
-    "plugins": ["expo-notifications"]
+    "plugins": [
+      "expo-notifications",
+      [
+        "expo-facebook",
+        {
+          "userTrackingPermission": false
+        }
+      ]
+    ]
   }
 }

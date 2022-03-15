@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, View, Animated } from "react-native";
 import Signal from "../../components/Signal/Signal";
 import { styles } from "./Signals.style";
 import { AdMobBanner } from "expo-ads-admob";
@@ -7,6 +7,7 @@ import axios from "axios";
 import * as Notifications from "expo-notifications";
 import { FadeInFlatList } from "@ja-ka/react-native-fade-in-flatlist";
 import { AnimatedFlatList, AnimationType } from "flatlist-intro-animations";
+import { MagicFlatList } from "react-native-magic-list";
 
 // {
 //   "0": "39",
@@ -47,6 +48,8 @@ function Signals({ navigation }) {
 
   const toggleResfresh = () => setRefresh(!Refresh);
 
+  const scrollY = React.useRef(new Animated.Value(0)).current;
+  const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
   const lastNotificationResponse = Notifications.useLastNotificationResponse();
 
   useEffect(() => {
@@ -131,6 +134,13 @@ function Signals({ navigation }) {
 
   return (
     <View style={styles.container}>
+      {/* <MagicFlatList
+        animateType="floatFromBottom"
+        data={signals}
+        renderItem={({ item }) => <Signal {...item} navigation={navigation} />}
+        onRefresh={toggleResfresh}
+        refreshing={isFetching}
+      /> */}
       <AnimatedFlatList
         data={signals}
         renderItem={({ item }) => <Signal {...item} navigation={navigation} />}
@@ -153,6 +163,28 @@ function Signals({ navigation }) {
         onRefresh={toggleResfresh}
         refreshing={isFetching}
         progressViewOffset={10}
+      /> */}
+      {/* <VegaScrollList
+        distanceBetweenItem={12}
+        refreshing={isFetching}
+        onRefresh={toggleResfresh}
+        data={signals}
+        renderItem={({ item }) => {
+          return <Signal {...item} navigation={navigation} />;
+        }}
+      ></VegaScrollList> */}
+      {/* <FlatList
+        refreshing={isFetching}
+        onRefresh={toggleResfresh}
+        scrollEventThrottle={16} // <-- Use 1 here to make sure no events are ever missed
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false }
+        )}
+        data={signals}
+        renderItem={({ item }) => {
+          return <Signal {...item} navigation={navigation} />;
+        }}
       /> */}
 
       <AdMobBanner
