@@ -86,7 +86,7 @@ export default function App() {
   const responseListener = useRef();
 
   useEffect(async () => {
-    console.log("Connecting to InAppPurchases", Constants.AppOwnership);
+    // console.log("Connecting to InAppPurchases", Constants.AppOwnership);
 
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token)

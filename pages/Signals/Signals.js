@@ -49,7 +49,7 @@ function Signals({ navigation }) {
   const toggleResfresh = () => setRefresh(!Refresh);
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
-  const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+  // const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
   const lastNotificationResponse = Notifications.useLastNotificationResponse();
 
   useEffect(() => {
