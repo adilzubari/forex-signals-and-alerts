@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import React, { Fragment, useEffect, useState } from "react";
+import {
+  BackHandler,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { styles } from "./SignalDetail.style";
 import {
   AdMobBanner,
@@ -10,6 +17,9 @@ import {
 } from "expo-ads-admob";
 import axios from "axios";
 import { ActivityIndicator } from "react-native-paper";
+import ReactNativeGalleryImage from "react-native-gallery-image";
+import convertObjectToArray from "../../helpers/convertObjectToArray";
+import { ImageGallery } from "@georstat/react-native-image-gallery";
 import * as FacebookAds from "expo-ads-facebook";
 
 function SignalDetail({ route, navigation }) {
@@ -36,6 +46,27 @@ function SignalDetail({ route, navigation }) {
     setTimeout(() => {
       setShowLoader(false);
     }, 3000);
+  }, []);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const openGallery = () => setIsOpen(true);
+  const closeGallery = () => setIsOpen(false);
+  const [Images, setImages] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://167.172.131.143/apis/getAllUploads.php")
+      .then((rawResponse) => {
+        setImages(
+          convertObjectToArray(rawResponse.data)
+            .filter((e) => typeof e === "string" && e.startsWith(sid))
+            .map((e) => `http://167.172.131.143/uploads/${e}`)
+        );
+        console.log(
+          convertObjectToArray(rawResponse.data)
+            .filter((e) => typeof e === "string" && e.startsWith(sid))
+            .map((e) => `http://167.172.131.143/uploads/${e}`)
+        );
+      });
   }, []);
 
   useEffect(() => {
@@ -167,6 +198,33 @@ function SignalDetail({ route, navigation }) {
       <Text style={styles.resultsTitle}>Results</Text>
       {ShowLoader && Details && (
         <ActivityIndicator size="large" color="rgb(220,220,220)" />
+      )}
+      {!ShowLoader && Images && (
+        <Fragment>
+          <View style={styles.thumbsContainer}>
+            <ReactNativeGalleryImage
+              shouldFit={true}
+              imagesEachRow={4}
+              selectionColor="transparent"
+              images={Images}
+              onImagePress={(pressedImage) => openGallery()}
+            />
+          </View>
+          <ImageGallery
+            close={closeGallery}
+            isOpen={isOpen}
+            images={Images.map((e, i) => {
+              return { id: i, url: e };
+            })}
+            renderHeaderComponent={() => {
+              return (
+                <TouchableOpacity onPress={closeGallery} style={styles.close}>
+                  <Text style={styles.closeText}>Close</Text>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </Fragment>
       )}
     </View>
   );

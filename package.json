@@ -9,6 +9,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@georstat/react-native-image-gallery": "^1.0.2",
     "@ja-ka/react-native-fade-in-flatlist": "^1.0.7",
     "@react-native-community/cli-platform-android": "^7.0.1",
     "@react-native-community/masked-view": "^0.1.11",
@@ -27,6 +28,7 @@
     "expo-ads-facebook": "~11.1.0",
     "expo-constants": "~13.0.1",
     "expo-device": "~4.1.0",
+    "expo-facebook": "~12.1.0",
     "expo-firebase-analytics": "~6.0.0",
     "expo-in-app-purchases": "~12.1.0",
     "expo-notifications": "~0.14.0",
@@ -37,11 +39,14 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-gallery-image": "^1.0.7",
     "react-native-gesture-handler": "~2.1.0",
+    "react-native-magic-list": "^0.1.0",
     "react-native-paper": "^4.11.2",
     "react-native-reanimated": "~2.3.1",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
+    "react-native-vega-scroll-list": "^1.0.0",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
