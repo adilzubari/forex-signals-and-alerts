@@ -50,4 +50,21 @@ export const styles = StyleSheet.create({
     fontSize: wWidth * 0.06,
     marginVertical: wHeight * 0.03,
   },
+  thumbsContainer: {
+    width: wWidth * 0.9,
+    marginHorizontal: wWidth * 0.05,
+  },
+  close: {
+    width: wWidth * 0.24,
+    marginLeft: wWidth * 0.37,
+    marginTop: wHeight * 0.03,
+    // marginHorizontal: wWidth * 0.05,
+    backgroundColor: "rgba(250,250,250,.4)",
+    textAlign: "center",
+    paddingVertical: wHeight * 0.01,
+    borderRadius: wHeight * 0.01,
+  },
+  closeText: {
+    textAlign: "center",
+  },
 });
