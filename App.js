@@ -17,7 +17,7 @@ import convertObjectToArray from "./helpers/convertObjectToArray";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "***REMOVED***",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "forex-signals-fa3d3.firebaseapp.com",
   projectId: "forex-signals-fa3d3",
   storageBucket: "forex-signals-fa3d3.appspot.com",

@@ -3,10 +3,9 @@ import { Dimensions, StyleSheet } from "react-native";
 export const wWidth = Dimensions.get("window").width;
 export const wHeight = Dimensions.get("window").height;
 export const pageBgColor = "rgb(50,50,50)";
-export const FIREBASE_API_KEY =
-  "***REMOVED***";
+export const FIREBASE_API_KEY = process.env.FIREBASE_FCM_SERVER_KEY;
 export const firebaseConfig = {
-  apiKey: "***REMOVED***",
+  apiKey: process.env.FIREBASE_API_KEY,
   projectId: "forex-signals-fa3d3",
   messagingSenderId: "483936075466",
   appId: "1:483936075466:web:a99794bf8609e33d107e33",
